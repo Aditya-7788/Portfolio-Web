@@ -1,889 +1,1190 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="assets/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="assets/newcss.css" />
-    <link
-      rel="stylesheet"
-      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aditya Mirkute | Cloud & DevOps Engineer</title>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #040a14;
+      --bg2: #071122;
+      --card: rgba(10,22,44,0.85);
+      --border: rgba(56,120,255,0.15);
+      --border-glow: rgba(56,120,255,0.4);
+      --blue: #3878ff;
+      --cyan: #00d4ff;
+      --purple: #7c3aff;
+      --green: #00ff88;
+      --text: #c8d8f0;
+      --text-dim: #5a7a9a;
+      --white: #eef4ff;
+      --font: 'Space Grotesk', sans-serif;
+      --display: 'Syne', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
 
-  <body oncontextmenu="return false">
-    <header class="header" id="header">
-      <nav class="nav container">
-        <a href="#" class="nav__logo">Aditya</a>
-        <div class="nav__menu" id="nav-menu">
-          <ul class="nav__list grid">
-            <li class="nav__item">
-              <a href="#home" class="nav__link active-link">
-                <i class="uil uil-estate nav__icon"></i>Home
-              </a>
-            </li>
-            <li class="nav__item">
-              <a href="#about" class="nav__link">
-                <i class="uil uil-user nav__icon"></i>About
-              </a>
-            </li>
-            <li class="nav__item">
-              <a href="#skills" class="nav__link">
-                <i class="uil uil-file-alt nav__icon"></i>Skills
-              </a>
-            </li>
-            <li class="nav__item">
-              <a href="#qualification" class="nav__link">
-                <i class="uil uil-briefcase-alt nav__icon"></i>Qualification
-              </a>
-            </li>
-            <li class="nav__item">
-              <a href="#portfolio" class="nav__link">
-                <i class="uil uil-scenery nav__icon"></i>Projects
-              </a>
-            </li>
-            <li class="nav__item">
-              <a href="#contact" class="nav__link">
-                <i class="uil uil-message nav__icon"></i>Contact-Me
-              </a>
-            </li>
-          </ul>
-          <i class="uil uil-times nav__close" id="nav-close"></i>
+    /* ── CANVAS BG ── */
+    #bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.4;
+    }
+
+    /* ── LAYOUT ── */
+    .wrapper { position: relative; z-index: 2; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 6rem 0; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.25rem 0;
+      background: rgba(4,10,20,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    }
+    .logo {
+      font-family: var(--display);
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.03em;
+    }
+    .logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-dim); font-size: 0.875rem;
+      font-weight: 500; text-decoration: none;
+      letter-spacing: 0.03em; text-transform: uppercase;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--cyan);
+      transform: scaleX(0); transition: transform 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem; color: var(--cyan);
+      letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before {
+      content: ''; display: block;
+      width: 2rem; height: 1px;
+      background: var(--cyan);
+    }
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800; color: var(--white);
+      line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .section-title .accent { color: var(--cyan); }
+    .section-title .accent2 { color: var(--purple); }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 5rem;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      font-family: var(--mono);
+      font-size: 0.75rem; color: var(--cyan);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+    .hero-tag .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero-name {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .hero-name .line2 {
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-role {
+      font-family: var(--mono);
+      font-size: 1rem; color: var(--text-dim);
+      margin-bottom: 1.5rem; letter-spacing: 0.02em;
+    }
+    .hero-role span { color: var(--cyan); }
+    .hero-desc {
+      font-size: 1rem; color: var(--text);
+      line-height: 1.8; margin-bottom: 2rem;
+      max-width: 480px;
+    }
+    .hero-badges {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .badge-pill {
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      font-size: 0.75rem; font-weight: 600;
+      font-family: var(--mono);
+      border: 1px solid;
+    }
+    .badge-pill.blue { border-color: rgba(56,120,255,0.4); color: var(--blue); background: rgba(56,120,255,0.08); }
+    .badge-pill.cyan { border-color: rgba(0,212,255,0.4); color: var(--cyan); background: rgba(0,212,255,0.08); }
+    .badge-pill.purple { border-color: rgba(124,58,255,0.4); color: var(--purple); background: rgba(124,58,255,0.08); }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.25s ease; border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #fff;
+      box-shadow: 0 0 24px rgba(56,120,255,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(56,120,255,0.5);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-glow);
+      color: var(--white);
+    }
+    .btn-outline:hover {
+      border-color: var(--cyan);
+      background: rgba(0,212,255,0.06);
+      transform: translateY(-2px);
+    }
+
+    /* HERO VISUAL SIDE */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      position: relative;
+    }
+    .hero-orb {
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(56,120,255,0.3), rgba(0,212,255,0.15), rgba(124,58,255,0.2));
+      border: 1px solid rgba(0,212,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+      box-shadow: 0 0 80px rgba(56,120,255,0.15), inset 0 0 80px rgba(0,212,255,0.05);
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+    .hero-orb-ring {
+      position: absolute; border-radius: 50%; border: 1px dashed;
+    }
+    .ring1 { width: 320px; height: 320px; border-color: rgba(56,120,255,0.12); animation: spin 20s linear infinite; }
+    .ring2 { width: 380px; height: 380px; border-color: rgba(0,212,255,0.08); animation: spin 30s linear infinite reverse; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-orb-inner {
+      text-align: center; z-index: 1;
+    }
+    .hero-initials {
+      font-family: var(--display);
+      font-size: 5rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1;
+    }
+    .hero-orb-label {
+      font-family: var(--mono);
+      font-size: 0.65rem; color: var(--text-dim);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+
+    /* FLOATING STAT CARDS */
+    .stat-card {
+      position: absolute;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1.1rem;
+      backdrop-filter: blur(20px);
+      white-space: nowrap;
+    }
+    .stat-card-val {
+      font-family: var(--display);
+      font-size: 1.4rem; font-weight: 800; color: var(--white);
+      line-height: 1;
+    }
+    .stat-card-label {
+      font-size: 0.7rem; color: var(--text-dim);
+      font-family: var(--mono); letter-spacing: 0.06em;
+    }
+    .stat1 { bottom: 10%; left: -20%; animation: float 5s ease-in-out infinite; }
+    .stat2 { top: 5%; right: -10%; animation: float 7s ease-in-out infinite 1s; }
+
+    /* SOCIAL LINKS */
+    .hero-socials {
+      display: flex; gap: 0.75rem; margin-top: 1.5rem;
+    }
+    .social-btn {
+      width: 2.5rem; height: 2.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-dim); font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: rgba(255,255,255,0.02);
+    }
+    .social-btn:hover {
+      border-color: var(--cyan); color: var(--cyan);
+      background: rgba(0,212,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: linear-gradient(180deg, transparent, rgba(7,17,34,0.6), transparent); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 4rem; align-items: start;
+    }
+    .about-photo-wrap { position: relative; }
+    .about-photo {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      display: block;
+      background: linear-gradient(135deg, rgba(56,120,255,0.15), rgba(0,212,255,0.08));
+    }
+    .about-photo-glow {
+      position: absolute; inset: -1px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan), var(--purple));
+      z-index: -1; opacity: 0.3; filter: blur(12px);
+    }
+    .about-badge {
+      position: absolute; bottom: -1rem; right: -1rem;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #fff; padding: 0.75rem 1.25rem;
+      border-radius: 12px; font-weight: 700;
+      font-size: 0.85rem; text-align: center;
+      box-shadow: 0 8px 32px rgba(56,120,255,0.4);
+    }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; margin: 2rem 0;
+    }
+    .astat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem; text-align: center;
+      transition: all 0.25s ease;
+    }
+    .astat:hover { border-color: var(--border-glow); transform: translateY(-3px); }
+    .astat-val {
+      font-family: var(--display);
+      font-size: 1.75rem; font-weight: 800; color: var(--cyan); line-height: 1;
+    }
+    .astat-label { font-size: 0.7rem; color: var(--text-dim); margin-top: 0.3rem; }
+
+    /* ── SKILLS ── */
+    #skills {}
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem;
+      transition: all 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .skill-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: var(--grad);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .skill-card:hover { border-color: var(--border-glow); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+    .skill-card:hover::before { opacity: 1; }
+    .skill-card-head {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .skill-icon-wrap {
+      width: 2.5rem; height: 2.5rem; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .skill-card-title { font-weight: 700; font-size: 1rem; color: var(--white); }
+    .skill-card-sub { font-size: 0.75rem; color: var(--text-dim); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .stag {
+      padding: 0.3rem 0.8rem; border-radius: 6px;
+      font-size: 0.75rem; font-weight: 500;
+      font-family: var(--mono); border: 1px solid;
+    }
+    .stag.blue { background: rgba(56,120,255,0.1); color: #7aa8ff; border-color: rgba(56,120,255,0.25); }
+    .stag.cyan { background: rgba(0,212,255,0.08); color: #5de0f5; border-color: rgba(0,212,255,0.2); }
+    .stag.purple { background: rgba(124,58,255,0.1); color: #a87dff; border-color: rgba(124,58,255,0.25); }
+    .stag.green { background: rgba(0,255,136,0.08); color: #4dff9e; border-color: rgba(0,255,136,0.2); }
+    .stag.orange { background: rgba(255,140,0,0.1); color: #ffa040; border-color: rgba(255,140,0,0.25); }
+
+    /* ── TIMELINE ── */
+    #qualification {}
+    .timeline { position: relative; padding-left: 2.5rem; margin-top: 3rem; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 0.4rem; top: 0.5rem; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--blue), var(--cyan), var(--purple), transparent);
+      border-radius: 2px;
+    }
+    .tl-item { position: relative; margin-bottom: 2rem; }
+    .tl-dot {
+      position: absolute; left: -2.5rem; top: 0.4rem;
+      width: 0.9rem; height: 0.9rem; border-radius: 50%;
+      background: var(--bg2);
+      border: 2px solid var(--blue);
+      transition: all 0.25s;
+    }
+    .tl-dot.active { background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+    .tl-item:hover .tl-dot { background: var(--blue); box-shadow: 0 0 12px var(--blue); transform: scale(1.3); }
+    .tl-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.25rem 1.5rem;
+      transition: all 0.25s;
+    }
+    .tl-item:hover .tl-card { border-color: var(--border-glow); transform: translateX(6px); }
+    .tl-year {
+      font-family: var(--mono);
+      font-size: 0.7rem; color: var(--cyan);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    .tl-title { font-weight: 700; color: var(--white); font-size: 1rem; margin-bottom: 0.2rem; }
+    .tl-org { font-size: 0.85rem; color: var(--blue); margin-bottom: 0.5rem; }
+    .tl-desc { font-size: 0.875rem; color: var(--text); line-height: 1.6; }
+    .tl-chip {
+      display: inline-block; margin-top: 0.6rem;
+      padding: 0.2rem 0.7rem; border-radius: 100px;
+      font-size: 0.7rem; font-weight: 600;
+      font-family: var(--mono);
+    }
+    .tl-chip.active { background: rgba(0,255,136,0.12); color: var(--green); border: 1px solid rgba(0,255,136,0.3); }
+    .tl-chip.done { background: rgba(56,120,255,0.12); color: #7aa8ff; border: 1px solid rgba(56,120,255,0.3); }
+
+    /* INTERNSHIP CARDS */
+    .intern-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+    .intern-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+      text-align: center; transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .intern-card:hover { border-color: var(--border-glow); transform: translateY(-5px); }
+    .intern-emoji { font-size: 2.2rem; margin-bottom: 0.75rem; display: block; }
+    .intern-title { font-weight: 700; color: var(--white); font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .intern-org { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.75rem; }
+    .intern-chip {
+      display: inline-block; padding: 0.2rem 0.7rem;
+      border-radius: 100px; font-size: 0.7rem; font-weight: 600;
+      font-family: var(--mono);
+      background: rgba(0,255,136,0.1); color: var(--green);
+      border: 1px solid rgba(0,255,136,0.25);
+    }
+    .intern-chip.a { background: rgba(56,120,255,0.1); color: #7aa8ff; border-color: rgba(56,120,255,0.3); }
+
+    /* ── PROJECTS ── */
+    #portfolio {}
+    .projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-top: 3rem; }
+    .proj-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .proj-card:hover { border-color: var(--border-glow); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .proj-img {
+      height: 160px;
+      background: linear-gradient(135deg, rgba(56,120,255,0.15), rgba(0,212,255,0.08));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .proj-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--img-grad);
+      opacity: 0.5;
+    }
+    .proj-img-inner { position: relative; z-index: 1; }
+    .proj-tag {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      padding: 0.2rem 0.65rem; border-radius: 6px;
+      font-size: 0.65rem; font-weight: 600;
+      font-family: var(--mono); z-index: 2;
+    }
+    .proj-body { padding: 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .proj-title { font-weight: 700; color: var(--white); font-size: 1rem; margin-bottom: 0.5rem; }
+    .proj-desc { font-size: 0.85rem; color: var(--text); line-height: 1.65; margin-bottom: 1rem; flex: 1; }
+    .proj-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .proj-tech span {
+      padding: 0.2rem 0.6rem; border-radius: 5px;
+      font-size: 0.7rem; font-weight: 500;
+      font-family: var(--mono);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-dim);
+    }
+    .proj-links { display: flex; gap: 0.5rem; }
+    .proj-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.5rem 1rem; border-radius: 7px;
+      font-size: 0.78rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      background: rgba(255,255,255,0.03);
+    }
+    .proj-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.06); }
+    .proj-btn.live { background: linear-gradient(135deg, rgba(56,120,255,0.2), rgba(0,212,255,0.1)); border-color: rgba(0,212,255,0.3); color: var(--cyan); }
+    .proj-btn.live:hover { box-shadow: 0 0 16px rgba(0,212,255,0.3); }
+
+    /* ── CONTACT ── */
+    #contact { background: linear-gradient(180deg, transparent, rgba(7,17,34,0.8), transparent); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; margin-top: 3rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; transition: all 0.25s;
+    }
+    .contact-item:hover { border-color: var(--border-glow); transform: translateX(4px); }
+    .contact-icon-box {
+      width: 2.5rem; height: 2.5rem; border-radius: 10px;
+      background: rgba(56,120,255,0.1);
+      border: 1px solid rgba(56,120,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--blue); flex-shrink: 0;
+      transition: all 0.25s;
+    }
+    .contact-item:hover .contact-icon-box { background: var(--blue); color: #fff; }
+    .contact-label { font-size: 0.75rem; color: var(--text-dim); font-family: var(--mono); }
+    .contact-val { font-size: 0.9rem; color: var(--white); font-weight: 500; }
+    .contact-val a { color: var(--cyan); text-decoration: none; }
+    .avail-chip {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 1.25rem;
+      background: rgba(0,255,136,0.06);
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: 12px; font-size: 0.85rem;
+      color: var(--green);
+    }
+    .avail-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 1.5s infinite; flex-shrink: 0; }
+
+    /* CONTACT FORM */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-size: 0.72rem; color: var(--text-dim); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.08em; }
+    .form-input {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      color: var(--white);
+      font-family: var(--font); font-size: 0.9rem;
+      transition: all 0.25s;
+      outline: none;
+    }
+    .form-input::placeholder { color: var(--text-dim); }
+    .form-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(56,120,255,0.12); }
+    textarea.form-input { resize: vertical; min-height: 120px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      background: rgba(4,10,20,0.8);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    }
+    .footer-name { font-weight: 700; color: var(--white); }
+    .footer-name span { color: var(--cyan); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-dim); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* ── SCROLL UP ── */
+    .scroll-up {
+      position: fixed; right: 1.5rem; bottom: -60px;
+      width: 2.5rem; height: 2.5rem;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.1rem; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(56,120,255,0.4);
+      transition: all 0.3s; z-index: 50;
+    }
+    .scroll-up.show { bottom: 1.5rem; }
+    .scroll-up:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(56,120,255,0.5); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-visual { display: none; }
+      .about-stats { grid-template-columns: repeat(2,1fr); }
+      .skills-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .intern-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 4rem 0; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: repeat(2,1fr); }
+    }
+
+    /* SCROLL ANIMATION */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="wrapper">
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="logo">AM<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#qualification">Education</a></li>
+      <li><a href="#portfolio">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <span class="dot"></span>
+          Available for opportunities
         </div>
-        <div class="nav__btns">
-          <!-- Theme change button -->
-          <i class="uil uil-moon change-theme" id="theme-button"></i>
-
-          <div class="nav__toggle" id="nav-toggle">
-            <i class="uil uil-apps"></i>
-          </div>
+        <h1 class="hero-name">
+          Aditya<br>
+          <span class="line2">Mirkute</span>
+        </h1>
+        <p class="hero-role">
+          <span>$</span> Cloud &amp; DevOps Engineer · Data Analyst
+        </p>
+        <p class="hero-desc">
+          BSc IT graduate (CGPA 9.7) from BK Birla College, Kalyan — building cloud infrastructure, CI/CD pipelines, and DevOps automation. Currently pursuing MSc IT.
+        </p>
+        <div class="hero-badges">
+          <span class="badge-pill cyan">☁ AWS</span>
+          <span class="badge-pill blue">⚙ DevOps</span>
+          <span class="badge-pill purple">📊 Data Analytics</span>
         </div>
-      </nav>
-    </header>
-    <!-- main-->
-
-    <main class="main">
-      <!--========================= Home =====================-->
-
-      <section class="home section" id="home">
-        <div class="home__container container grid">
-          <div class="home__content grid">
-            <div class="home__social">
-              <a
-                href="https://www.linkedin.com/in/venkateeshh/"
-                target="_blank"
-                class="home__social-icon"
-              >
-                <i class="uil uil-linkedin-alt home__icon"></i>
-              </a>
-
-              <a
-                href="https://github.com/Venkateeshh"
-                target="_blank"
-                class="home__social-icon"
-              >
-                <i class="uil uil-github-alt home__icon"></i>
-              </a>
-            </div>
-            <div class="home__img">
-              <svg
-                class="home__blob"
-                viewBox="0 0 200 187"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-              >
-                <mask id="mask0" mask-type="alpha">
-                  <path
-                    d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
-                      130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
-                      97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
-                      0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"
-                  />
-                </mask>
-                <g mask="url(#mask0)">
-                  <path
-                    d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
-                      165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
-                      129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
-                     -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"
-                  />
-                  <image
-                    class="home__blob-img"
-                    x="-79"
-                    y="-46"
-                    xlink:href="assets/img/AdityaPRP.jpeg"
-                  />
-                </g>
-              </svg>
-            </div>
-            <div class="home__data">
-              <h1 class="home__title">Hi, I'm Aditya Mirkute</h1>
-              <h3 class="home__subtitle">
-                Information Science Engineering Student
-              </h3>
-              <p class="home__description">
-                A Bsc It Student
-                <strong>BK Birla College </strong>, Kalyan.
-              </p>
-              <a href="#contact" class="button button--flex">
-                Contact me<i class="uil uil-message button__icon"></i>
-              </a>
-            </div>
-          </div>
-
-          <div class="home__scroll">
-            <a href="#about" class="home__scroll-button button--flex">
-              <i class="uil uil-mouse-alt home__scroll-mouse"></i>
-              <span class="home__scroll-name">Scroll down</span>
-              <i class="uil uil-arrow-down home__scroll-arrow"></i>
-            </a>
-          </div>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            <i class="uil uil-envelope"></i> Hire Me
+          </a>
+          <a href="#portfolio" class="btn btn-outline">
+            <i class="uil uil-eye"></i> View Work
+          </a>
         </div>
-      </section>
-
-      <!--======================= About========================-->
-
-      <section class="about section" id="about">
-        <h2 class="section__title">About Me</h2>
-        <span class="section__subtitle">My introduction</span>
-
-        <div class="about__container container grid">
-          <img src="assets\img\AdityaPRP.jpeg" alt="" class="about__img" />
-
-          <div class="about__data">
-            <p class="about__description">
-              BSc Information Technology graduate (CGPA: 9.7, April 2026) with hands-on experience in Microsoft Azure and AWS, actively building
-              expertise in Cloud Infrastructure, DevOps, and CI/CD pipelines. Completed internships across Cloud Computing, Data Analytics, and Web
-              Development. Currently enrolled in a DevOps course at DevOps Institute to advance skills in Docker, Kubernetes, Terraform, and GitHub
-              Actions. Seeking a Cloud/DevOps role where I can apply and grow my cloud skills.
-            </p>
-
-            <div class="about__info">
-              <div>
-                <span class="about__info-title">9+</span>
-                <span class="about__info-name">Aggregate <br />CGPA</span>
-              </div>
-
-              <div>
-                <span class="about__info-title">04+</span>
-                <span class="about__info-name"
-                  >
-                  Projects</span
-                >
-              </div>
-
-              <div>
-                <span class="about__info-title">01+</span>
-                <span class="about__info-name">Months <br />experience</span>
-              </div>
-            </div>
-
-            <div class="about__buttons">
-              <a download="" href="assets\Aditya_Mirkute_Resume.pdf" class="button button--flex">
-                Download CV<i class="fas fa-download button__icon"></i>
-              </a>
-            </div>
-          </div>
+        <div class="hero-socials">
+          <a href="https://www.linkedin.com/in/aditya-mirkute-8b5b5b225/" target="_blank" class="social-btn" title="LinkedIn">
+            <i class="uil uil-linkedin-alt"></i>
+          </a>
+          <a href="https://github.com/Aditya-7788" target="_blank" class="social-btn" title="GitHub">
+            <i class="uil uil-github-alt"></i>
+          </a>
+          <a href="mailto:adityamirkute@gmail.com" class="social-btn" title="Email">
+            <i class="uil uil-envelope"></i>
+          </a>
         </div>
-      </section>
-
-      <!--===================== SKILLS =====================-->
-
-      <section class="skills section" id="skills">
-        <h2 class="section__title">Skills</h2>
-        <span class="section__subtitle">My technical level</span>
-
-        <div class="skills__container container grid">
-          <div>
-            <!--==================== Skill 1 =================-->
-            <div class="skills__content skills__open">
-              <div class="skills__header">
-                <i class="fas fa-pencil-ruler skills__icon"></i>
-
-                <div>
-                  <h1 class="skills__title">Programming Languages</h1>
-                </div>
-
-                <i class="uil uil-angle-down skills__arrow"></i>
-              </div>
-              
-
-              <div class="skills__list grid">
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">C</h3>
-                  </div>
-                  
-                </div>
-                
-                  <div class="skills__data">
-                    <div class="skills__titles">
-                      <h3 class="skills__name">Java</h3>
-                    </div>
-                    
-                  </div>
-                  <div class="skills__data">
-                    <div class="skills__titles">
-                      <h3 class="skills__name">JavaScript</h3>
-                    </div>
-                    
-                  </div>
-                  <div class="skills__data">
-                    <div class="skills__titles">
-                      <h3 class="skills__name">Python</h3>
-                    </div>
-                   
-                  </div>
-                  <div class="skills__data">
-                    <div class="skills__titles">
-                      <h3 class="skills__name">TypeScript</h3>
-                    </div>
-                </div>
-                
-                
-              </div>
-            </div>
-
-            <!--==================== Skill 2 =================-->
-            <div class="skills__content skills__close">
-              <div class="skills__header">
-                <i class="fas fa-code skills__icon"></i>
-
-                <div>
-                  <h1 class="skills__title">IT Constructs</h1>
-                </div>
-
-                <i class="uil uil-angle-down skills__arrow"></i>
-              </div>
-
-              <div class="skills__list grid">
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">DBMS</h3>
-                  </div>
-                  
-                </div>
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">DS & Algorithms</h3>
-                  </div>
-                  
-                </div>
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">OOP</h3>
-                  </div>
-                  
-                </div>
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">OS</h3>
-                  </div>
-                  
-                </div>
-                
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <!--==================== Skill 3 =================-->
-            <div class="skills__content skills__close">
-              <div class="skills__header">
-                <i class="fas fa-swatchbook skills__icon"></i>
-                <div>
-                  <h1 class="skills__title">Technologies</h1>
-                </div>
-
-                <i class="uil uil-angle-down skills__arrow"></i>
-              </div>
-
-              <div class="skills__list grid">
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">Git</h3>
-                  </div>
-                  
-                </div>
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">MongoDB</h3>
-                  </div>
-                  
-                </div>
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">MySQL</h3>
-                  </div>
-                  
-                </div>
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">NextJs</h3>
-                  </div>
-                  
-                </div>
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">NodeJs</h3>
-                  </div>
-                  
-                </div>
-                
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">Tailwind</h3>
-                  </div>
-                  
-                </div>
-                <div class="skills__data">
-                  <div class="skills__titles">
-                    <h3 class="skills__name">MySQL</h3>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!--==================== Qualifications ==================-->
-
-      <section
-        class="qualification__section service__section"
-        id="qualification"
-      >
-        <h2 class="section__title">Qualification</h2>
-        <span class="section__subtitle">My personal journey</span>
-
-        <div
-          class="qualification__container container grid services__container"
-        >
-          <div class="qualification__tabs">
-            <div
-              class="qualification__button button--flex qualification__active"
-              data-target="#education"
-            >
-              <i class="uil uil-graduation-cap qualification__icon"></i>
-              Education
-            </div>
-          </div>
-
-          <div class="qualification__sections">
-            <!--====== Qualification Content 1 ======-->
-            <div
-              class="qualification__content qualifiation__active services__content"
-              data-content
-              id="education"
-            >
-              <!--====== Qualification 1 ======-->
-              <div class="qualification__data">
-                <div>
-                  <h3 class="qualification__title">SSC</h3>
-                  <span class="qualification__subtitle"
-                    >J.V.D <br />High School</span
-                  >
-                  <div class="qualification__calender">
-                    <i class="uil uil-calendar-alt"></i>
-                    - 2021
-                  </div>
-                  <span
-                    class="button button--flex button--small button--link services__button"
-                  >
-                    View More
-                    <i class="uil uil-arrow-right button__icon"></i>
-                  </span>
-                  <div class="services__modal">
-                    <div class="services__modal-content">
-                      <h4 class="services__modal-title">
-                        Class 10th Summary :
-                      </h4>
-                      <i class="uil uil-times services__modal-close"></i>
-                      <ul class="services__modal-services grid">
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__moda-icon"
-                          ></i>
-                          <p>
-                            Subjects studied: Science, Maths, English,
-                            Social Studies,Marathi,Hindi.
-                          </p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__moda-icon"
-                          ></i>
-                          <p>Scored 75%</p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__moda-icon"
-                          ></i>
-                          <p>Cricket player at school</p>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <span class="qualification__rounder"></span>
-                  <span class="qualification__line"></span>
-                </div>
-              </div>
-
-              <!--====== Qualification 2 ======-->
-              <div class="qualification__data">
-                <div></div>
-
-                <div>
-                  <span class="qualification__rounder"></span>
-                  <span class="qualification__line"></span>
-                </div>
-                <div>
-                  <h3 class="qualification__title">Class 12th</h3>
-                  <span class="qualification__subtitle"
-                    >JSSP Goveli <br />Pre University College</span
-                  >
-                  <div class="qualification__calender">
-                    <i class="uil uil-calendar-alt"></i>
-                    - 2023
-                  </div>
-                  <span
-                    class="button button--flex button--small button--link services__button"
-                  >
-                    View More
-                    <i class="uil uil-arrow-right button__icon"></i>
-                  </span>
-                  <div class="services__modal">
-                    <div class="services__modal-content">
-                      <h4 class="services__modal-title">
-                        Class 12th Summary :
-                      </h4>
-                      <i class="uil uil-times services__modal-close"></i>
-                      <ul class="services__modal-services grid">
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__moda-icon"
-                          ></i>
-                          <p>
-                            Subjects studied: Physics, Chemistry, Maths,
-                            English, Statistics , Marathi.
-                          </p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__moda-icon"
-                          ></i>
-                          <p>Scored 63.83%</p>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!--====== Qualification 3 ======-->
-              <div class="qualification__data">
-                <div>
-                  <h3 class="qualification__title">College</h3>
-                  <span class="qualification__subtitle"
-                    >BK Birla College Kalyan</span
-                  >
-                  <div class="qualification__calender">
-                    <i class="uil uil-calendar-alt"></i>
-                    2023 - 2026
-                  </div>
-                  <span
-                    class="button button--flex button--small button--link services__button"
-                  >
-                    View More
-                    <i class="uil uil-arrow-right button__icon"></i>
-                  </span>
-                  <div class="services__modal">
-                    <div class="services__modal-content">
-                      <h4 class="services__modal-title">College Summary :</h4>
-                      <i class="uil uil-times services__modal-close"></i>
-                      <ul class="services__modal-services grid">
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__modal-icon"
-                          ></i>
-                          <p>
-                            Studying core subjects of IT including DSA, Embedded
-                            systems, Design analysis and algorithm, Operating
-                            systems, and Computer architecture .
-                          </p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__modal-icon"
-                          ></i>
-                          <p>Scored an aggregate of 8.50 CGPA till now.</p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__modal-icon"
-                          ></i>
-                          <p>
-                            Student coordinator in media and
-                            publication club of the college.
-                          </p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__modal-icon"
-                          ></i>
-                          <p>
-                            Club Advisor for GeekHub.
-                          </p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__modal-icon"
-                          ></i>
-                          <p>
-                            CodeBlaze hackathon winners under open innovation.
-                          </p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__modal-icon"
-                          ></i>
-                          <p>
-                            Runners in Edu-Vitality Hackathon in the track of AI in Education.
-                          </p>
-                        </li>
-                        <li class="services__modal-service">
-                          <i
-                            class="uil uil-check-circle services__modal-icon"
-                          ></i>
-                          <p>
-                            Finalist in Dark Pattern Buster Hackathon conducted by Department of Consumer Affairs of India.
-                          </p>
-                        </li>
-                        
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <span class="qualification__rounder"></span>
-                  <!--<span class="qualification__line"></span>-->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!--=================== Portfolio ===================-->
-      <section class="portfolio section" id="portfolio">
-        <h2 class="section__title">Projects</h2>
-        <span class="section__subtitle">Most recent work</span>
-
-        <div class="portfolio__container container swiper-container">
-          <div class="swiper-wrapper">
-            <!-- ------------------------portfollio 1-------------------- -->
-            <div class="portfolio__content grid swiper-slide">
-              <img src="assets/img/portfolio5.png" class="portfolio__img" />
-
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">
-                  DarkSurfer-Extension
-                </h3>
-                <p class="portfolio__description">
-                  DarkSurfer-Extension, is a project based on the application of advanced Language Models LMs to detect and eliminate dark patterns on websites. It aims to improve user-awareness, exposing real-time of devious design practices in situ. It helps make the internet more user-friendly by using its novel LMs and popular LM-based models, such as RoBERTa, BERT, and XLNet.
-                </p>
-                <a
-                  href="https://github.com/Venkateeshh/DarkSurfer-Extension"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  GitHub Repository
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-                <a
-                  href="https://darksurfer.streamlit.app/"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  See Live
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-              </div>
-            </div>
-            <!-- ------------------------portfollio 2-------------------- -->
-
-            <div class="portfolio__content grid swiper-slide">
-              <img src="assets/img/portfolio1.png" class="portfolio__img" />
-
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">
-                  Responsive-Weather-Forecast-Website
-                </h3>
-                <p class="portfolio__description">
-                  This project is a weather website that provides live weather
-                  updates and forecasts based on your location. Stay informed
-                  about current weather conditions, temperature, and more.
-                  Explore interactive maps, hourly/daily forecasts, and helpful
-                  insights. Stay ahead of the forecast and make the most of your
-                  day!
-                </p>
-                <a
-                  href="https://github.com/Venkateeshh/Weather-App"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  GitHub Repository
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-                <a
-                  href="https://venkateeshh.github.io/Weather-App/"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  See Live
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- ------------------------portfollio 3-------------------- -->
-            <div class="portfolio__content grid swiper-slide">
-              <img src="assets/img/portfolio2.png" class="portfolio__img" />
-
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">Spotify-Clone</h3>
-                <p class="portfolio__description">
-                  Spotify Clone is a web app developed using HTML, CSS, and
-                  JavaScript. It recreates Spotify's interface and features,
-                  allowing users to browse, search, and play songs, create
-                  playlists, and discover new music. Responsive design ensures a
-                  seamless experience on any device. Contributions are welcome!
-                </p>
-                <a
-                  href="https://github.com/Venkateeshh/Spotify-Clone"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  GitHub Repository
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-                <a
-                  href="https://venkateeshh.github.io/Spotify-Clone/"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  See Live
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-              </div>
-            </div>
-            <!-- ------------------------portfollio 4-------------------- -->
-            <div class="portfolio__content grid swiper-slide">
-              <img src="assets/img/portfolio3.png" class="portfolio__img" />
-
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">Language Translator</h3>
-                <p class="portfolio__description">
-                  This language translator web app is a user-friendly tool built
-                  with HTML, CSS, and JavaScript. It leverages Google Translate
-                  API to seamlessly translate text between multiple languages.
-                  The app features a simple interface, ensuring smooth
-                  performance across devices..
-                </p>
-                <a
-                  href="https://github.com/Venkateeshh/Js-Language-Translator"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  GitHub Repository
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-                <a
-                  href="https://venkateeshh.github.io/Js-Language-Translator/"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  See Live
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- ------------------------portfollio 5-------------------- -->
-            <div class="portfolio__content grid swiper-slide">
-              <img src="assets/img/portfolio4.png" class="portfolio__img" />
-
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">Sorting Visualizer</h3>
-                <p class="portfolio__description">
-                  Sorting Visualizer is a Java-based project that allows users
-                  to visualize various sorting algorithms in action using a
-                  Graphical User Interface (GUI). It provides an interactive and
-                  educational way to understand how different sorting algorithms
-                  work by visually demonstrating their step-by-step sorting
-                  process.
-                </p>
-                <a
-                  href="https://github.com/Venkateeshh/Sorting-Visualizer"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  GitHub Repository
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-                <a
-                  href="https://www.linkedin.com/posts/venkatesh-kamath-_algorithmdesign-sortingvisualizer-javaprojects-activity-7095437035125043200-fWDl?utm_source=share&utm_medium=member_desktop"
-                  class="button button--flex button--small portfolio__button"
-                >
-                  See Live
-                  <i class="uil uil-external-link-alt button__icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- add arrows -->
-          <div class="swiper-button-next">
-            <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
-          </div>
-          <div class="swiper-button-prev">
-            <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
-          </div>
-          <!-- add pagination -->
-          <div class="swiper-pagination"></div>
-        </div>
-      </section>
-
-      <!--===================== Contact Me =====================-->
-      <section class="contact section" id="contact">
-        <h2 class="section__title">Contact Me</h2>
-        <span class="section__subtitle">Get in touch</span>
-
-        <div class="contact__container container grid">
-          <div>
-            <div class="contact__information">
-              <i class="uil uil-calling contact__icon"></i>
-
-              <div>
-                <h3 class="contact__title">Contact Me</h3>
-                <span class="contact__subtitle"
-                  ><a href="tel:6362243314"></a>6362243314</span
-                >
-              </div>
-            </div>
-
-            <div class="contact__information">
-              <i class="uil uil-envelope-minus contact__icon"></i>
-
-              <div>
-                <h3 class="contact__title">Email</h3>
-                <span class="contact__subtitle"
-                  >rkamathvenkatesh@gmail.com</span
-                >
-              </div>
-            </div>
-
-            <div class="contact__information">
-              <i class="uil uil-map-marker contact__icon"></i>
-
-              <div>
-                <h3 class="contact__title">Location</h3>
-                <span class="contact__subtitle"
-                  >Manglore, Karnataka, India</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <form action="" class="contact__form grid">
-            <div class="contact__inputs grid">
-              <div class="contact__content">
-                <label for="" class="content__label">Name</label>
-                <input type="text" class="contact__input" />
-              </div>
-
-              <div class="contact__content">
-                <label for="" class="content__label">Email</label>
-                <input type="Email" class="contact__input" />
-              </div>
-            </div>
-
-            <div class="contact__content">
-              <label for="" class="content__label">Message</label>
-              <textarea
-                name=""
-                id=""
-                cols="0"
-                rows="7"
-                class="contact__input"
-              ></textarea>
-            </div>
-
-            <div>
-              <a
-                href=" mailto: rkamathvenkatesh@gmail.com?subject=Testing out mailto! &body=This is only a test!"
-                class="button button--flex"
-              >
-                Send Message
-                <i class="uil uil-message button__icon"></i>
-              </a>
-            </div>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <!--================== Footer ===============-->
-    <footer class="footer">
-      <div class="footer__bg">
-        <div class="footer__container container grid">
-          <div>
-            <h1 class="footer__title">Venkatesh</h1>
-            <span class="footer__subtitle"
-              >Information Science Engineering Student</span
-            >
-          </div>
-
-          <ul class="footer__links">
-            <li>
-              <a href="#qualification" class="footer__link">Qualification</a>
-            </li>
-            <li>
-              <a href="#portfolio" class="footer__link">Portfolio</a>
-            </li>
-            <li>
-              <a href="#contact" class="footer__link">Contact-Me</a>
-            </li>
-          </ul>
-
-          <div class="footer__socials">
-            <a
-              href="https://www.instagram.com/venkateeshh/"
-              class="footer__social"
-              target="__blank"
-            >
-            <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a
-              href="https://twitter.com/Venkateeshhh"
-              target="__blank"
-              class="footer__social"
-            >
-            <i class="fa-brands fa-x-twitter"></i>
-            </a>
-          </div>
-        </div>
-
-        <p class="footer__copy">&#169; Venkatesh. All right reserved</p>
       </div>
-    </footer>
+      <div class="hero-visual">
+        <div class="hero-orb">
+          <div class="hero-orb-ring ring1"></div>
+          <div class="hero-orb-ring ring2"></div>
+          <div class="hero-orb-inner">
+            <div class="hero-initials">AM</div>
+            <div class="hero-orb-label">Cloud · DevOps · Data</div>
+          </div>
+        </div>
+        <div class="stat-card stat1">
+          <div class="stat-card-val">9.7</div>
+          <div class="stat-card-label">CGPA Score</div>
+        </div>
+        <div class="stat-card stat2">
+          <div class="stat-card-val">4+</div>
+          <div class="stat-card-label">Projects Live</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!--================== SCROLL TOP ==================-->
-    <a href="#" class="scrollup" id="scroll-up">
-      <i class="uil uil-arrow-up scrollup__icon"></i>
-    </a>
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-photo-wrap">
+        <img src="assets/img/AdityaPRP.jpeg" alt="Aditya Mirkute" class="about-photo"/>
+        <div class="about-photo-glow"></div>
+        <div class="about-badge">Open to<br>Work 🚀</div>
+      </div>
+      <div>
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Who I <span class="accent">Am</span></h2>
+        <p style="color:var(--text);line-height:1.8;margin-bottom:1rem;">
+          BSc IT graduate with a <strong style="color:var(--white)">9.7 CGPA</strong> from BK Birla College, Kalyan (April 2026), currently pursuing MSc IT from Mumbai University. I've completed internships in <strong style="color:var(--white)">Cloud Computing</strong> (iFuture Technologies), Data Analytics (Imarticus Learning — Grade A), and Web Development (Vault of Codes).
+        </p>
+        <p style="color:var(--text);line-height:1.8;margin-bottom:1.5rem;">
+          Currently enrolled in an offline <strong style="color:var(--white)">Cloud DevOps course</strong> at DevOps Institute, Thane — covering Linux, Networking, Docker, Kubernetes, Terraform, and GitHub Actions. I've deployed a live portfolio on <strong style="color:var(--cyan)">AWS S3 + CloudFront CDN</strong> with a full CI/CD pipeline.
+        </p>
+        <div class="about-stats">
+          <div class="astat"><div class="astat-val">9.7</div><div class="astat-label">CGPA</div></div>
+          <div class="astat"><div class="astat-val">3</div><div class="astat-label">Internships</div></div>
+          <div class="astat"><div class="astat-val">4+</div><div class="astat-label">Projects</div></div>
+          <div class="astat"><div class="astat-val" style="font-size:1.2rem">MSc</div><div class="astat-label">Pursuing IT</div></div>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+          <a href="assets/Aditya_Mirkute_Resume.pdf" download class="btn btn-primary">
+            <i class="uil uil-file-download"></i> Download CV
+          </a>
+          <a href="https://d3pr0qios2ox3i.cloudfront.net" target="_blank" class="btn btn-outline">
+            <i class="uil uil-external-link-alt"></i> Live Portfolio
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script type="text/javascript" src="assets/swiper-bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/2205d59d52.js" crossorigin="anonymous"></script>
-    <script src="assets/ptj.js"></script>
-  </body>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Technical Toolkit</div>
+      <h2 class="section-title">My <span class="accent">Skills</span></h2>
+    </div>
+    <div class="skills-grid reveal">
+
+      <div class="skill-card" style="--grad:linear-gradient(90deg,#3878ff,#00d4ff)">
+        <div class="skill-card-head">
+          <div class="skill-icon-wrap" style="background:rgba(56,120,255,0.12);color:#3878ff">
+            <i class="uil uil-cloud"></i>
+          </div>
+          <div>
+            <div class="skill-card-title">Cloud & DevOps</div>
+            <div class="skill-card-sub">Core focus area</div>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="stag blue">AWS (S3, CloudFront, EC2)</span>
+          <span class="stag cyan">Microsoft Azure</span>
+          <span class="stag blue">GitHub Actions CI/CD</span>
+          <span class="stag cyan">Linux & Shell Scripting</span>
+          <span class="stag purple">Docker</span>
+          <span class="stag purple">Kubernetes</span>
+          <span class="stag orange">Terraform</span>
+        </div>
+      </div>
+
+      <div class="skill-card" style="--grad:linear-gradient(90deg,#00ff88,#00d4ff)">
+        <div class="skill-card-head">
+          <div class="skill-icon-wrap" style="background:rgba(0,255,136,0.1);color:#00ff88">
+            <i class="uil uil-chart-bar"></i>
+          </div>
+          <div>
+            <div class="skill-card-title">Data Analytics</div>
+            <div class="skill-card-sub">Secondary expertise</div>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="stag green">Power BI</span>
+          <span class="stag cyan">MySQL / SQL</span>
+          <span class="stag blue">Python (Pandas, NumPy)</span>
+          <span class="stag green">Data Visualization</span>
+        </div>
+      </div>
+
+      <div class="skill-card" style="--grad:linear-gradient(90deg,#7c3aff,#3878ff)">
+        <div class="skill-card-head">
+          <div class="skill-icon-wrap" style="background:rgba(124,58,255,0.12);color:#7c3aff">
+            <i class="uil uil-server"></i>
+          </div>
+          <div>
+            <div class="skill-card-title">Networking & OS</div>
+            <div class="skill-card-sub">Infrastructure knowledge</div>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="stag purple">OSI Model / TCP/IP</span>
+          <span class="stag blue">DNS, HTTP/HTTPS</span>
+          <span class="stag purple">Subnetting & VPC</span>
+          <span class="stag cyan">Git & GitHub</span>
+        </div>
+      </div>
+
+      <div class="skill-card" style="--grad:linear-gradient(90deg,#ff6b6b,#7c3aff)">
+        <div class="skill-card-head">
+          <div class="skill-icon-wrap" style="background:rgba(255,107,107,0.1);color:#ff8f8f">
+            <i class="uil uil-brackets-curly"></i>
+          </div>
+          <div>
+            <div class="skill-card-title">Web Development</div>
+            <div class="skill-card-sub">Frontend & basic backend</div>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="stag orange">HTML, CSS, JavaScript</span>
+          <span class="stag purple">React.js</span>
+          <span class="stag green">Node.js</span>
+          <span class="stag blue">Java</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="qualification">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Academic Journey</div>
+      <h2 class="section-title">Education & <span class="accent2">Training</span></h2>
+    </div>
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-card">
+          <div class="tl-year">2024 – Present</div>
+          <div class="tl-title">MSc Information Technology</div>
+          <div class="tl-org">Mumbai University</div>
+          <div class="tl-desc">Pursuing postgraduate studies with focus on advanced IT, research, and cloud computing.</div>
+          <span class="tl-chip active">In Progress</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-card">
+          <div class="tl-year">2024 – Present</div>
+          <div class="tl-title">Cloud DevOps Course</div>
+          <div class="tl-org">DevOps Institute, Thane</div>
+          <div class="tl-desc">Offline course covering Linux, Networking, AWS, Docker, Kubernetes, Terraform, and GitHub Actions CI/CD pipelines.</div>
+          <span class="tl-chip active">In Progress</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-year">2023 – 2026</div>
+          <div class="tl-title">BSc Information Technology</div>
+          <div class="tl-org">BK Birla College, Kalyan (Mumbai University)</div>
+          <div class="tl-desc">Graduated with CGPA 9.7. Completed internships in Cloud Computing, Data Analytics, and Web Development. Deployed live AWS projects.</div>
+          <span class="tl-chip done">CGPA: 9.7 ✓</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-year">2021 – 2023</div>
+          <div class="tl-title">HSC — Class 12th (Science)</div>
+          <div class="tl-org">JSSP Goveli Pre University College</div>
+          <div class="tl-desc">Physics, Chemistry, Maths, Statistics. Scored 63.83%.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-year">2021</div>
+          <div class="tl-title">SSC — Class 10th</div>
+          <div class="tl-org">J.V.D High School</div>
+          <div class="tl-desc">Scored 75%.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <h3 style="text-align:center;color:var(--white);font-size:1.1rem;margin-top:3.5rem;margin-bottom:1.5rem">Internships</h3>
+    <div class="intern-grid reveal">
+      <div class="intern-card">
+        <span class="intern-emoji">☁</span>
+        <div class="intern-title">Cloud Computing</div>
+        <div class="intern-org">iFuture Technologies</div>
+        <span class="intern-chip">Completed</span>
+      </div>
+      <div class="intern-card" style="border-color:rgba(56,120,255,0.3)">
+        <span class="intern-emoji">📊</span>
+        <div class="intern-title">Data Analytics</div>
+        <div class="intern-org">Imarticus Learning</div>
+        <span class="intern-chip a">Grade A</span>
+      </div>
+      <div class="intern-card">
+        <span class="intern-emoji">💻</span>
+        <div class="intern-title">Web Development</div>
+        <div class="intern-org">Vault of Codes</div>
+        <span class="intern-chip">Completed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="portfolio">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">What I've Built</div>
+      <h2 class="section-title">My <span class="accent">Projects</span></h2>
+    </div>
+    <div class="projects-grid reveal">
+
+      <div class="proj-card">
+        <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(56,120,255,0.4),rgba(0,212,255,0.2))">
+          <div class="proj-img-inner">☁</div>
+          <span class="proj-tag" style="background:rgba(56,120,255,0.8);color:#fff">Cloud / DevOps</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">AWS S3 Portfolio with CI/CD</div>
+          <div class="proj-desc">Static portfolio hosted on AWS S3 with CloudFront CDN for global delivery. Full GitHub Actions CI/CD pipeline for automated deployments on every push.</div>
+          <div class="proj-tech"><span>AWS S3</span><span>CloudFront</span><span>GitHub Actions</span><span>CI/CD</span></div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn"><i class="uil uil-github-alt"></i> GitHub</a>
+            <a href="https://d3pr0qios2ox3i.cloudfront.net" target="_blank" class="proj-btn live"><i class="uil uil-external-link-alt"></i> Live</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(124,58,255,0.3),rgba(56,120,255,0.15))">
+          <div class="proj-img-inner">🌤</div>
+          <span class="proj-tag" style="background:rgba(124,58,255,0.8);color:#fff">Web Dev</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Responsive Weather Forecast App</div>
+          <div class="proj-desc">Live weather website with real-time updates, location-based forecasts, interactive maps, hourly/daily data, and fully responsive design.</div>
+          <div class="proj-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Weather API</span></div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn"><i class="uil uil-github-alt"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(0,255,136,0.2),rgba(0,212,255,0.15))">
+          <div class="proj-img-inner">📊</div>
+          <span class="proj-tag" style="background:rgba(0,180,100,0.85);color:#fff">Data Analytics</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Data Analytics Dashboard</div>
+          <div class="proj-desc">Power BI dashboard built during Imarticus Learning internship. SQL queries, data cleaning, and visual storytelling with KPIs, slicers, and dynamic charts.</div>
+          <div class="proj-tech"><span>Power BI</span><span>MySQL</span><span>Python</span><span>Pandas</span></div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn"><i class="uil uil-github-alt"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(255,140,0,0.25),rgba(124,58,255,0.2))">
+          <div class="proj-img-inner">🌐</div>
+          <span class="proj-tag" style="background:rgba(200,90,0,0.85);color:#fff">Web Dev</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">JS Language Translator</div>
+          <div class="proj-desc">Multi-language translator web app using Google Translate API. Simple, responsive interface with real-time translation and copy-to-clipboard functionality.</div>
+          <div class="proj-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Google API</span></div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn"><i class="uil uil-github-alt"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card" style="grid-column:1/-1">
+        <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(56,120,255,0.2),rgba(124,58,255,0.2));height:120px">
+          <div class="proj-img-inner" style="font-size:2rem">⚙</div>
+          <span class="proj-tag" style="background:rgba(124,58,255,0.8);color:#fff">Java / GUI</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Sorting Algorithm Visualizer</div>
+          <div class="proj-desc">Java-based GUI project that visualizes sorting algorithms step-by-step — Bubble Sort, Merge Sort, Quick Sort, and more — with adjustable speed control.</div>
+          <div class="proj-tech"><span>Java</span><span>Swing GUI</span><span>DSA</span></div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn"><i class="uil uil-github-alt"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Let's Connect</div>
+      <h2 class="section-title">Contact <span class="accent">Me</span></h2>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon-box"><i class="uil uil-envelope"></i></div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-val"><a href="mailto:adityamirkute@gmail.com">adityamirkute@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon-box"><i class="uil uil-phone"></i></div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-val">Available for calls</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon-box"><i class="uil uil-map-marker"></i></div>
+          <div>
+            <div class="contact-label">Location</div>
+            <div class="contact-val">Kalyan, Maharashtra, India</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon-box"><i class="uil uil-linkedin"></i></div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-val"><a href="https://www.linkedin.com/in/aditya-mirkute-8b5b5b225/" target="_blank">Aditya Mirkute</a></div>
+          </div>
+        </div>
+        <div class="avail-chip">
+          <span class="dot"></span>
+          Open to Cloud / DevOps &amp; Data Analyst roles — Mumbai / Thane / Navi Mumbai
+        </div>
+      </div>
+
+      <form class="contact-form" onsubmit="return false">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" placeholder="John Doe"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Email</label>
+            <input type="email" class="form-input" placeholder="john@example.com"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-input" placeholder="Job opportunity / Collaboration"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" rows="5" placeholder="Write your message here..."></textarea>
+        </div>
+        <a href="mailto:adityamirkute@gmail.com?subject=Portfolio%20Contact" class="btn btn-primary" style="align-self:flex-start">
+          <i class="uil uil-message"></i> Send Message
+        </a>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Aditya <span>Mirkute</span></div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#portfolio">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Aditya Mirkute. All rights reserved.</div>
+  </div>
+</footer>
+
+</div><!-- /wrapper -->
+
+<a href="#home" class="scroll-up" id="scroll-up"><i class="uil uil-arrow-up"></i></a>
+
+<script>
+// ── ANIMATED CANVAS BACKGROUND ──
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Stars
+const stars = Array.from({length: 180}, () => ({
+  x: Math.random(), y: Math.random(),
+  r: Math.random() * 1.2 + 0.2,
+  a: Math.random(),
+  speed: Math.random() * 0.004 + 0.001,
+  phase: Math.random() * Math.PI * 2
+}));
+
+// Floating orbs
+const orbs = [
+  { x: 0.15, y: 0.2, r: 260, color: '56,120,255', speed: 0.00008 },
+  { x: 0.85, y: 0.15, r: 200, color: '0,212,255', speed: 0.00012 },
+  { x: 0.5,  y: 0.8, r: 220, color: '124,58,255', speed: 0.00010 },
+  { x: 0.75, y: 0.6, r: 160, color: '0,212,255', speed: 0.00015 },
+];
+
+let t = 0;
+function draw() {
+  t += 1;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Deep background gradient
+  const bg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  bg.addColorStop(0, '#040a14');
+  bg.addColorStop(0.5, '#071122');
+  bg.addColorStop(1, '#04091a');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Orbs
+  orbs.forEach(o => {
+    const px = o.x * canvas.width + Math.sin(t * o.speed * 60) * 80;
+    const py = o.y * canvas.height + Math.cos(t * o.speed * 60) * 60;
+    const grad = ctx.createRadialGradient(px, py, 0, px, py, o.r);
+    grad.addColorStop(0, `rgba(${o.color},0.12)`);
+    grad.addColorStop(0.5, `rgba(${o.color},0.04)`);
+    grad.addColorStop(1, 'transparent');
+    ctx.beginPath();
+    ctx.arc(px, py, o.r, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  });
+
+  // Stars
+  stars.forEach(s => {
+    const pulse = Math.sin(t * s.speed * 200 + s.phase) * 0.5 + 0.5;
+    ctx.beginPath();
+    ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(200,220,255,${s.a * 0.6 * pulse + 0.1})`;
+    ctx.fill();
+  });
+
+  // Connecting lines between nearby stars (subtle)
+  ctx.strokeStyle = 'rgba(56,120,255,0.04)';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i < stars.length; i++) {
+    for (let j = i + 1; j < stars.length; j++) {
+      const dx = (stars[i].x - stars[j].x) * canvas.width;
+      const dy = (stars[i].y - stars[j].y) * canvas.height;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120) {
+        ctx.globalAlpha = (1 - dist/120) * 0.3;
+        ctx.beginPath();
+        ctx.moveTo(stars[i].x * canvas.width, stars[i].y * canvas.height);
+        ctx.lineTo(stars[j].x * canvas.width, stars[j].y * canvas.height);
+        ctx.stroke();
+      }
+    }
+  }
+  ctx.globalAlpha = 1;
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+// ── SCROLL UP ──
+const scrollBtn = document.getElementById('scroll-up');
+window.addEventListener('scroll', () => {
+  scrollBtn.classList.toggle('show', window.scrollY > 400);
+});
+
+// ── REVEAL ON SCROLL ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
 </html>
