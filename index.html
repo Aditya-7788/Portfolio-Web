@@ -606,6 +606,12 @@
     /* SCROLL ANIMATION */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
+
+    .proj-img-inner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;}
   </style>
 </head>
 <body>
@@ -919,7 +925,9 @@
 
       <div class="proj-card">
         <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(56,120,255,0.4),rgba(0,212,255,0.2))">
-          <div class="proj-img-inner">☁</div>
+          <div class="proj-img-inner">
+            <img src="assets/img/portfolio.png" alt="Portfolio Website">
+          </div>
           <span class="proj-tag" style="background:rgba(56,120,255,0.8);color:#fff">Cloud / DevOps</span>
         </div>
         <div class="proj-body">
@@ -928,9 +936,38 @@
           <div class="proj-tech"><span>AWS S3</span><span>CloudFront</span><span>GitHub Actions</span><span>CI/CD</span></div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn"><i class="uil uil-github-alt"></i> GitHub</a>
-            <a href="https://d3pr0qios2ox3i.cloudfront.net" target="_blank" class="proj-btn live"><i class="uil uil-external-link-alt"></i> Live</a>
+            <a href="http://aditya-portfolio-static.s3-website-us-east-1.amazonaws.com/" target="_blank" class="proj-btn live"><i class="uil uil-external-link-alt"></i> Live</a>
           </div>
         </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(255,80,80,0.25),rgba(255,180,0,0.2))">
+            <div class="proj-img-inner">
+              <img src="assets/img/thakarecom.png" alt="Thakare E-Commerce Website">
+            </div>
+            <span class="proj-tag" style="background:rgba(220,50,50,0.85);color:#fff">E-Commerce</span>
+        </div>
+          <div class="proj-body">
+            <div class="proj-title">Thakare E-Commerce Website</div>
+            <div class="proj-desc">
+              A fully responsive e-commerce website developed for Thakare. Features include product catalog, category filtering, shopping cart, responsive UI, and a modern user experience optimized for desktop and mobile devices.
+          </div>
+            <div class="proj-tech">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>Bootstrap</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn">
+                <i class="uil uil-github-alt"></i> GitHub
+              </a>
+              <a href="YOUR_LIVE_LINK" target="_blank" class="proj-btn live">
+                <i class="uil uil-external-link-alt"></i> Live
+              </a>
+            </div>
+          </div>
       </div>
 
       <div class="proj-card">
@@ -950,7 +987,9 @@
 
       <div class="proj-card">
         <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(0,255,136,0.2),rgba(0,212,255,0.15))">
-          <div class="proj-img-inner">📊</div>
+          <div class="proj-img-inner">
+            <img src="assets/img/DataA.png" alt="Prime Video Data Analytics Dashboard">
+          </div>
           <span class="proj-tag" style="background:rgba(0,180,100,0.85);color:#fff">Data Analytics</span>
         </div>
         <div class="proj-body">
@@ -963,35 +1002,8 @@
         </div>
       </div>
 
-      <div class="proj-card">
-        <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(255,140,0,0.25),rgba(124,58,255,0.2))">
-          <div class="proj-img-inner">🌐</div>
-          <span class="proj-tag" style="background:rgba(200,90,0,0.85);color:#fff">Web Dev</span>
-        </div>
-        <div class="proj-body">
-          <div class="proj-title">JS Language Translator</div>
-          <div class="proj-desc">Multi-language translator web app using Google Translate API. Simple, responsive interface with real-time translation and copy-to-clipboard functionality.</div>
-          <div class="proj-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Google API</span></div>
-          <div class="proj-links">
-            <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn"><i class="uil uil-github-alt"></i> GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="proj-card" style="grid-column:1/-1">
-        <div class="proj-img" style="--img-grad:linear-gradient(135deg,rgba(56,120,255,0.2),rgba(124,58,255,0.2));height:120px">
-          <div class="proj-img-inner" style="font-size:2rem">⚙</div>
-          <span class="proj-tag" style="background:rgba(124,58,255,0.8);color:#fff">Java / GUI</span>
-        </div>
-        <div class="proj-body">
-          <div class="proj-title">Sorting Algorithm Visualizer</div>
-          <div class="proj-desc">Java-based GUI project that visualizes sorting algorithms step-by-step — Bubble Sort, Merge Sort, Quick Sort, and more — with adjustable speed control.</div>
-          <div class="proj-tech"><span>Java</span><span>Swing GUI</span><span>DSA</span></div>
-          <div class="proj-links">
-            <a href="https://github.com/Aditya-7788" target="_blank" class="proj-btn"><i class="uil uil-github-alt"></i> GitHub</a>
-          </div>
-        </div>
-      </div>
+      
+      
 
     </div>
   </div>
